@@ -14,6 +14,6 @@ cd traineeship-manager
 ./mvnw spring-boot:run # for linux/MacOS
 mvnw.cmd spring-boot:run # for Windows
 ```
-Additionally you need to create a MySQL Databese myy803 and execute the myy803.sql
-you can go to /src/main/resources/application.properties and edit the SQL connection username and password
-Apllication shlould here in localhost port8080 ( http://localhost:8080/ )
+Additionally you will need to create a MySQL Databese with name `myy803` and execute the `myy803.sql` .
+You can go from project file to `/src/main/resources/application.properties` and edit the SQL connection username and password.
+Apllication shlould hear in localhost,port8080 ( http://localhost:8080/ )
