@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <title>Assign Proffesors</title>
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .card {
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+            background-color: white;
+        }
+
+        h3 {
+            color: #007bff;
+            margin-bottom: 1.5rem;
+        }
+
+        table th {
+            background-color: #e3f2fd;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <div class="card">
+            <h3 class="text-center">All Professors</h3>
+            <hr>
+
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Name</th>
+                        <th>Interests</th>
+                        <th>Load</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="prof : ${professors}">
+                        <td th:text="${prof.username}"></td>
+                        <td th:text="${prof.professorName}"></td>
+                        <td th:text="${prof.interests}"></td>
+                        <td th:text="${prof.supervisedPositions.size()}"></td>
+                        <td>
+                            <a th:href="@{/admin/findTraineeshipForProfessor(username=${prof.username})}" class="btn btn-primary">
+                                Find Traineeship
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="text-center mt-4">
+                <a href="/admin/dashboard" class="btn btn-secondary">Back to Dashboard</a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

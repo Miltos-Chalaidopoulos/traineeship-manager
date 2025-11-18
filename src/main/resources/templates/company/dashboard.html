@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Dashboard</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+          crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .app-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #007bff;
+            margin-top: 2rem;
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+
+        .dashboard-title {
+            font-size: 1.5rem;
+            text-align: center;
+            margin-top: 0.5rem;
+        }
+
+        .btn-group-custom {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <div class="app-title">Traineeship Manager</div>
+    <div class="dashboard-title">Welcome to Company Dashboard</div>
+
+    <hr class="my-4">
+
+    <div class="text-center">
+        <h5>Logged as: <span sec:authentication="name"></span></h5>
+        <h5>Has role: <span sec:authentication="authorities"></span></h5>
+    </div>
+
+    <hr class="my-4">
+
+    <div class="btn-group-custom">
+        <a th:href="@{/company/profile}" class="btn btn-primary">Profile</a>
+        <a th:href="@{/company/addposition}" class="btn btn-primary">Add Position</a>
+        <a th:href="@{/company/positions/available}" class="btn btn-primary">View Available Positions</a>
+        <a th:href="@{/company/positions/assigned}" class="btn btn-primary">View Assigned Positions</a>
+        <a th:href="@{/logout}" class="btn btn-danger">Logout</a>
+    </div>
+</div>
+</body>
+</html>

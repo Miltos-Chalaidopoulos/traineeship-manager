@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+          crossorigin="anonymous">
+
+    <title>Profile</title>
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .form-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .form-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container mt-5">
+    <div class="form-card mx-auto col-md-8">
+        <div class="form-title text-center text-primary">Edit Student Profile</div>
+
+        <form action="#" th:action="@{/user/save}" th:object="${profile}" method="POST">
+            <input type="hidden" th:field="*{username}" />
+
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" th:field="*{studentName}" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label>AM</label>
+                <input type="text" th:field="*{AM}" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label>Interests</label>
+                <input type="text" th:field="*{interests}" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label>Skills</label>
+                <input type="text" th:field="*{skills}" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label>Preferred Location</label>
+                <input type="text" th:field="*{preferedLocation}" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label>Average Grade</label>
+                <input type="number" step="0.01" min="0" max="10" th:field="*{avgGrade}" class="form-control">
+            </div>
+
+            <div class="form-group form-check">
+                <input type="checkbox" th:field="*{lookingForTraineeship}" class="form-check-input" id="traineeshipCheckbox">
+                <label class="form-check-label" for="traineeshipCheckbox">Looking for traineeship?</label>
+            </div>
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary px-4">Save</button>
+            </div>
+        </form>
+
+        <div class="text-center mt-4">
+            <a href="/user/dashboard" class="btn btn-secondary">Back to Dashboard</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

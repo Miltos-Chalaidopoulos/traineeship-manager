@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <title>Position List</title>
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .card {
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+            background-color: white;
+        }
+
+        h3 {
+            color: #007bff;
+            margin-bottom: 1.5rem;
+        }
+
+        table th {
+            background-color: #e3f2fd;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <div class="card">
+            <h3 class="text-center">Your Traineeship Positions</h3>
+            <hr>
+
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Topics</th>
+                        <th>Skills</th>
+                        <th>From Date</th>
+                        <th>To Date</th>
+                        <th>Student</th>
+                        <th>Professor</th>
+                        <th>Actions</th>
+                        <th>Evaluation</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="position : ${positions}">
+                        <td th:text="${position.title}"></td>
+                        <td th:text="${position.description}"></td>
+                        <td th:text="${position.topics}"></td>
+                        <td th:text="${position.skills}"></td>
+                        <td th:text="${position.fromDate}"></td>
+                        <td th:text="${position.toDate}"></td>
+                        <td th:text="${position.student != null ? position.student.username : 'No student assigned'}"></td>
+                        <td th:text="${position.supervisor != null ? position.supervisor.username : 'No professor assigned'}"></td>
+                        <td>
+                            <!-- Delete Button -->
+                            <form th:action="@{/company/positions/delete/{id}(id=${position.id})}" method="post">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </td>
+                        <td>
+                            <!-- If the position is assigned, show the Evaluate button or "Unavailable" -->
+                            <span th:if="${position.isAssigned}">
+                                <form th:action="@{/company/positions/evaluate/{id}(id=${position.id})}" method="get">
+                                    <button type="submit" class="btn btn-success">Evaluate</button>
+                                </form>
+                            </span>
+                            <span th:if="${!position.isAssigned}">
+                                Unavailable
+                            </span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="text-center mt-4">
+                <a href="/company/dashboard" class="btn btn-secondary">Back to Dashboard</a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

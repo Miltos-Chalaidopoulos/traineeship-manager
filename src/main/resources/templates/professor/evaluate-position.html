@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" crossorigin="anonymous">
+    <title>Evaluate Position</title>
+</head>
+
+<body>
+<div class="container mt-5">
+    <div class="card">
+        <h3 class="text-center">Evaluate Trainee</h3>
+        <hr>
+
+        <p class="text-center">
+            <strong>Traineeship Position:</strong> <span th:text="${positionTitle}"></span><br>
+            <strong>Student:</strong> <span th:text="${studentName}"></span>
+        </p>
+
+        <div th:if="${message}" class="alert alert-success text-center">
+            <span th:text="${message}"></span>
+        </div>
+
+        <form th:action="@{/professor/positions/evaluate/{id}(id=${positionId})}" method="post">
+            <!-- Motivation -->
+            <div class="form-group">
+                <label for="motivation">Motivation (1-5)</label>
+                <select id="motivation" name="motivation" class="form-control" required>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+
+            <!-- Efficiency -->
+            <div class="form-group">
+                <label for="efficiency">Efficiency (1-5)</label>
+                <select id="efficiency" name="efficiency" class="form-control" required>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+
+            <!-- Effectiveness -->
+            <div class="form-group">
+                <label for="effectiveness">Effectiveness (1-5)</label>
+                <select id="effectiveness" name="effectiveness" class="form-control" required>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+
+            <div class="text-center mt-4">
+                <a href="/professor/dashboard" class="btn btn-secondary">Back to Dashboard</a>
+                <button class="btn btn-primary ml-3" type="submit">Submit Evaluation</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+
+</html>

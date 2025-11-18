@@ -1,0 +1,100 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" crossorigin="anonymous">
+  <title>Assign Proffesors</title>
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+
+    .card {
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+      background-color: white;
+    }
+
+    .card-header {
+      background-color: #007bff;
+      color: white;
+      border-radius: 8px 8px 0 0;
+      padding: 1rem;
+      margin: -2rem -2rem 2rem -2rem;
+    }
+
+    h3, h4 {
+      color: white;
+      margin-bottom: 1.5rem;
+    }
+
+    table th {
+      background-color: #e3f2fd;
+    }
+
+    .btn-secondary {
+      margin-top: 15px;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container mt-5">
+    <div class="card mb-4">
+      <div class="card-header">
+        <h4 class="mb-0">Professor Information</h4>
+      </div>
+      <div class="card-body">
+        <div class="row mb-2">
+          <div class="col-md-4"><strong>Username:</strong> <span th:text="${professor.username}"></span></div>
+          <div class="col-md-4"><strong>Name:</strong> <span th:text="${professor.professorName}"></span></div>
+          <div class="col-md-4"><strong>Load:</strong> <span th:text="${#lists.size(professor.supervisedPositions)}"></span> traineeships</div>
+        </div>
+        <div class="row">
+          <div class="col-md-12"><strong>Interests:</strong> <span th:text="${professor.interests}"></span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Description</th>
+              <th>Company</th>
+              <th>Topics</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="position : ${unassignedPositions}">
+              <td th:text="${position.title}"></td>
+              <td th:text="${position.description}"></td>
+              <td th:text="${position.company != null ? position.company.name : 'N/A'}"></td>
+              <td th:text="${position.topics}"></td>
+              <td>
+                <form th:action="@{/admin/assignSupervisor}" method="post">
+                  <input type="hidden" name="positionId" th:value="${position.id}" />
+                  <input type="hidden" name="professorUsername" th:value="${professor.username}" />
+                  <button type="submit" class="btn btn-sm btn-primary">Assign to This Professor</button>
+                </form>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="text-center mt-4">
+        <a href="/admin/professors" class="btn btn-secondary">Back to Professors List</a>
+        <a href="/admin/dashboard" class="btn btn-secondary">Back to Dashboard</a>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

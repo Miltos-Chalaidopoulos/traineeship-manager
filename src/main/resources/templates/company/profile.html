@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <title>Profile</title>
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .form-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .form-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+        }
+        .form-group label {
+            font-weight: bold;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <div class="form-card mx-auto col-md-8">
+            <div class="form-title text-center text-primary">Edit Company Profile</div>
+
+            <form action="#" th:action="@{/company/save}" th:object="${profile}" method="POST">
+                <input type="hidden" th:field="*{username}" />
+
+                <div class="form-group">
+                    <label for="companyName">Company Name</label>
+                    <input type="text" th:field="*{companyName}" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label for="companyLocation">Company Location</label>
+                    <input type="text" th:field="*{companyLocation}" class="form-control">
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary px-4">Save</button>
+                </div>
+            </form>
+
+            <div class="text-center mt-4">
+                <a href="/company/dashboard" class="btn btn-secondary">Back to Dashboard</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

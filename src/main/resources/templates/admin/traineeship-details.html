@@ -1,0 +1,180 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" crossorigin="anonymous">
+  <title>Traineeship details</title>
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+
+    .card {
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+      background-color: white;
+    }
+
+    .card-header {
+      background-color: #007bff;
+      color: white;
+      border-radius: 8px 8px 0 0;
+      padding: 1rem;
+      margin: -2rem -2rem 2rem -2rem;
+    }
+
+    h3, h4 {
+      color: white;
+      margin-bottom: 1.5rem;
+    }
+
+    .btn-secondary {
+      margin-top: 15px;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container mt-5">
+    <div class="card mb-4">
+      <div class="card-header">
+        <h4 class="mb-0">Traineeship Details</h4>
+      </div>
+      <div class="card-body">
+        <div class="row mb-2">
+          <div class="col-md-4"><strong>Title:</strong> <span th:text="${position.title}"></span></div>
+          <div class="col-md-4"><strong>Description:</strong> <span th:text="${position.description}"></span></div>
+        </div>
+        <div class="row mb-2">
+          <div class="col-md-4"><strong>From Date:</strong> <span th:text="${position.fromDate}"></span></div>
+          <div class="col-md-4"><strong>To Date:</strong> <span th:text="${position.toDate}"></span></div>
+        </div>
+        <div class="row mb-2">
+          <div class="col-md-4"><strong>Topics:</strong> <span th:text="${position.topics}"></span></div>
+          <div class="col-md-4"><strong>Skills:</strong> <span th:text="${position.skills}"></span></div>
+        </div>
+        <div class="row mb-2">
+          <div class="col-md-4"><strong>Supervisor:</strong> <span th:text="${position.supervisor.professorName}"></span></div>
+          <div class="col-md-4"><strong>Company:</strong> <span th:text="${position.company.name}"></span></div>
+          <div class="col-md-4"><strong>Student:</strong> <span th:text="${position.student.studentName}"></span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Student LogBook Information -->
+    <div class="card mb-4 logbook-card">
+      <div class="card-header">
+        <h4 class="mb-0">Student LogBook</h4>
+      </div>
+      <div class="card-body">
+        <div class="row mb-3">
+          <div class="col-md-12">
+            <div th:if="${position.studentLogBook != null and position.studentLogBook.trim() != ''}">
+              <p th:text="${position.studentLogBook}"></p>
+            </div>
+            <div th:if="${position.studentLogBook == null or position.studentLogBook.trim() == ''}">
+              No logbook entries available.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Evaluations Row -->
+    <div class="row">
+      <!-- Company Evaluation -->
+      <div class="col-md-6 mb-4">
+        <div class="card evaluations-card">
+          <div class="card-header">
+            <h4 class="mb-0">Company Evaluation</h4>
+          </div>
+          <div class="card-body">
+            <div th:if="${position.evaluations != null and not #lists.isEmpty(position.evaluations)}">
+              <div th:each="evaluation : ${position.evaluations}" th:if="${!evaluation.isProffesor}" class="evaluation-entry">
+                <div class="row mb-3">
+                  <div class="col-md-4">
+                    <strong>Motivation:</strong> <span th:text="${evaluation.motivation}"></span>
+                  </div>
+                  <div class="col-md-4">
+                    <strong>Efficiency:</strong> <span th:text="${evaluation.efficiency}"></span>
+                  </div>
+                  <div class="col-md-4">
+                    <strong>Effectiveness:</strong> <span th:text="${evaluation.effectiveness}"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div th:if="${position.evaluations == null or #lists.isEmpty(position.evaluations)}">
+              No evaluations available.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Professor Evaluation -->
+      <div class="col-md-6 mb-4">
+        <div class="card evaluations-card">
+          <div class="card-header">
+            <h4 class="mb-0">Professor Evaluation</h4>
+          </div>
+          <div class="card-body">
+            <div th:if="${position.evaluations != null and not #lists.isEmpty(position.evaluations)}">
+              <div th:each="evaluation : ${position.evaluations}" th:if="${evaluation.isProffesor}" class="evaluation-entry">
+                <div class="row mb-3">
+                  <div class="col-md-4">
+                    <strong>Motivation:</strong> <span th:text="${evaluation.motivation}"></span>
+                  </div>
+                  <div class="col-md-4">
+                    <strong>Efficiency:</strong> <span th:text="${evaluation.efficiency}"></span>
+                  </div>
+                  <div class="col-md-4">
+                    <strong>Effectiveness:</strong> <span th:text="${evaluation.effectiveness}"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div th:if="${position.evaluations == null or #lists.isEmpty(position.evaluations)}">
+              No evaluations available.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+<!-- Pass/Fail Grade Form -->
+<h2 class="text-center" style="color: #007bff;">Grade Student</h2>
+<div class="card-content">
+  <form th:action="@{/admin/traineeships/grade}" method="post">
+    <input type="hidden" name="positionId" th:value="${position.id}" />
+    <div class="row justify-content-center mb-3">
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="passFailGrade" value="true"
+               th:checked="${position.passFailGrade == true}" id="passGrade">
+        <label class="form-check-label" for="passGrade">Pass</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="passFailGrade" value="false"
+               th:checked="${position.passFailGrade == false}" id="failGrade">
+        <label class="form-check-label" for="failGrade">Fail</label>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+  </form>
+</div>
+
+
+    <div class="text-center mt-4">
+      <a href="/admin/traineeships" class="btn btn-secondary">Back to Traineeships List</a>
+      <a href="/admin/dashboard" class="btn btn-secondary">Back to Dashboard</a>
+    </div>
+  </div>
+</body>
+
+</html>

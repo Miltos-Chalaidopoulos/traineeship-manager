@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" crossorigin="anonymous">
+  <title>Traineeships in progress</title>
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+
+    .card {
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+      background-color: white;
+    }
+
+    .card-header {
+      background-color: #007bff;
+      color: white;
+      border-radius: 8px 8px 0 0;
+      padding: 1rem;
+      margin: -2rem -2rem 2rem -2rem;
+    }
+
+    table th {
+      background-color: #e3f2fd;
+    }
+
+    .btn-secondary {
+      margin-top: 15px;
+      margin-right: 10px;
+    }
+
+    .btn-primary {
+      margin-top: 15px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container mt-5">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="mb-0">Traineeships In Progress</h4>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Student</th>
+              <th>Supervisor</th>
+              <th>Company</th>
+              <th>Topics</th>
+              <th>Skills</th>
+              <th>From Date</th>
+              <th>To Date</th>
+              <th>More</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="position : ${inProgressPositions}">
+              <td th:text="${position.title}"></td>
+              <td th:text="${position.student?.studentName}"></td>
+              <td th:text="${position.supervisor?.professorName}"></td>
+              <td th:text="${position.company?.name}"></td>
+              <td th:text="${position.topics}"></td>
+              <td th:text="${position.skills}"></td>
+              <td th:text="${position.fromDate}"></td>
+              <td th:text="${position.toDate}"></td>
+              <td>
+			      <a th:href="@{'/admin/traineeship?id=' + ${position.id}}" class="btn btn-sm btn-primary">More</a>
+			  </td>
+
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="text-center mt-4">
+        <a href="/admin/dashboard" class="btn btn-secondary">Back to Dashboard</a>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

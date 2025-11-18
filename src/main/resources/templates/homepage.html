@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+  <title>Homepage</title>
+  <style>
+    .btn-group-inline a {
+      margin: 0 8px;
+      min-width: 100px;
+    }
+  </style>
+</head>
+
+<body class="bg-light">
+<div class="container d-flex justify-content-center align-items-center vh-100">
+  <div class="card shadow-lg p-5 w-100" style="max-width: 600px;">
+
+    <h3 class="text-center mb-4">Traineeship Manager</h3>
+
+    <div sec:authorize="hasRole('ROLE_ANONYMOUS')" class="text-center">
+      <div class="btn-group-inline">
+        <a th:href="@{/login}" class="btn btn-primary">Login</a>
+        <a th:href="@{/register}" class="btn btn-secondary">Register</a>
+      </div>
+    </div>
+
+    <div sec:authorize="isAuthenticated()">
+      <p class="text-center">Logged in as: <strong><span sec:authentication="name"></span></strong></p>
+      <p class="text-center">Roles: <span sec:authentication="authorities"></span></p>
+
+      <hr />
+
+      <div class="d-grid gap-2">
+        <!-- STUDENT -->
+        <div sec:authorize="hasAuthority('STUDENT')">
+          <a th:href="@{/user/dashboard}" class="btn btn-outline-primary btn-block">Student Dashboard</a>
+        </div>
+
+        <!-- PROFESSOR -->
+        <div sec:authorize="hasAuthority('PROFESSOR')">
+          <a th:href="@{/professor/dashboard}" class="btn btn-outline-primary btn-block">Professor Dashboard</a>
+        </div>
+
+        <!-- COMPANY -->
+        <div sec:authorize="hasAuthority('COMPANY')">
+          <a th:href="@{/company/dashboard}" class="btn btn-outline-primary btn-block">Company Dashboard</a>
+        </div>
+
+        <!-- COMMITTEE -->
+		<div sec:authorize="hasAuthority('ADMIN')">
+  			<a th:href="@{/admin/dashboard}" class="btn btn-outline-primary btn-block">Committee Dashboard</a>
+		</div>
+
+
+        <a th:href="@{/logout}" class="btn btn-danger btn-block mt-3">Logout</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>
