@@ -11,6 +11,7 @@ A Springboot java web application, for managing traineeships using a MySQL datab
 ```bash
 clone https://github.com/Miltos-Chalaidopoulos/traineeship-manager
 cd traineeship-manager
+mv mvn .mvn
 ./mvnw spring-boot:run # for linux/MacOS
 mvnw.cmd spring-boot:run # for Windows
 ```
